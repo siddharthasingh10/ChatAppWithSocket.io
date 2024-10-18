@@ -13,8 +13,14 @@ app.get('/', (req, res) => {
 
 // Socket.IO connection event
 io.on('connection', (socket) => {
-    console.log('A user is connected');
-    socket.emit('welcome', 'Welcome to the WebSocket server!');
+ 
+    socket.on('msg_send',(data)=>{
+        //data is same object that is emitted
+        console.log(data )
+        io.emit('msg_received',data);
+
+    })
+
 });
 
 server.listen(3000, () => {
